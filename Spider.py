@@ -1,5 +1,6 @@
 # coding: utf-8
 import json
+import os
 import traceback
 from multiprocessing.pool import Pool
 from urllib.parse import urlencode
@@ -56,6 +57,8 @@ def parse_page_data(content):
 
 def download_picture(url, pic_name):
     try:
+        if not os.path.exists("pictures"):
+            os.mkdir("pictures")
         response = requests.get(url)
         if response.status_code == 200:
             pic_name = re.sub('[\<\>\/\\\|\:\"\*\?]', ' ', pic_name)
